@@ -1,5 +1,4 @@
-import pygame as pg
-import random
+import pygame as pg,random
 
 # --CONSTANTS--
 # COLOURS
@@ -8,7 +7,7 @@ BLACK = (0, 0, 0)
 
 WIDTH = 1280  # Pixels
 HEIGHT = 720
-SCREEN_SIZE = (WIDTH, HEIGHT)
+screen_size = (WIDTH, HEIGHT)
 
 class Snowflake(pg.sprite.Sprite):
     def __init__(self):
@@ -27,44 +26,28 @@ class Snowflake(pg.sprite.Sprite):
             self.rect.x = random.randrange(WIDTH)
 
 def start():
-    """Environment Setup and Game Loop"""
+
 
     pg.init()
 
-    # --Game State Variables--
-    screen = pg.display.set_mode(SCREEN_SIZE)
+    screen = pg.display.set_mode(screen_size)
     done = False
     clock = pg.time.Clock()
-
-    # All sprites go in this sprite Group
     all_sprites = pg.sprite.Group()
-
-    pg.display.set_caption("<WINDOW TITLE HERE>")
-
-    # Create snowflakes
+    pg.display.set_caption("<SnowFlake>")
     for _ in range(50):
         snowflake = Snowflake()
         all_sprites.add(snowflake)
 
-    # --Main Loop--
     while not done:
-        # --- Event Listener
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 done = True
-
-        # --- Update the world state
         all_sprites.update()
-
-        # --- Draw items
         screen.fill(BLACK)
         all_sprites.draw(screen)
-
-        # Update the screen with anything new
         pg.display.flip()
-
-        # --- Tick the Clock
-        clock.tick(60)  # 60 fps
+        clock.tick(60) 
 
 
 def main():
